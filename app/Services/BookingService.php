@@ -19,7 +19,7 @@ class BookingService
     {
         return DB::transaction(function () use ($data) {
 
-            $client = $this->resolveClient($data);
+            //$client = $this->resolveClient($data);
 
             $startAt = Carbon::parse($data['start_at']);
             $endAt = $startAt->copy()->addMinutes((int) $data['duration']);
@@ -27,7 +27,7 @@ class BookingService
             $this->checkConflict($data['master_id'], $startAt, $endAt);
 
             return Booking::create([
-                'client_id' => $client->id,
+                'client_id' => null,
                 'master_id' => $data['master_id'],
                 'status' => $data['status'],
                 'car_brand' => $data['car_brand'] ?? null,

@@ -33,13 +33,90 @@
         </select>
     </div>
 
-    {{-- Client --}}
+    {{-- Complaint --}}
     <div>
+        <label
+            for="complaint"
+            class="block mb-2 text-sm font-medium text-gray-700"
+        >
+            Жалобы
+        </label>
+
+        <textarea
+            name="complaint"
+            id="complaint"
+            rows="5"
+            class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
+        >{{ old('complaint') }}</textarea>
+    </div>
+
+    {{-- Time --}}
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-700">
+            Время записи
+        </label>
+        <input
+            type="datetime-local"
+            name="start_at"
+            value="{{ old('start_at', isset($booking) ? $booking->start_at->format('Y-m-d\TH:i') : '') }}"
+            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        >
+        @error('start_at')
+        <div class="text-red-500 text-sm mt-1">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
+
+    {{-- Duration --}}
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-700">
+            Продолжительность
+        </label>
+        <select
+            name="duration"
+            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        >
+
+
+            @foreach(config('durations') as $value => $label)
+                <option value="{{ $value }}">
+                    {{ $label }}
+                </option>
+            @endforeach
+
+        </select>
+
+    </div>
+
+    {{-- Status --}}
+    <div>
+        <select
+            name="status"
+            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        >
+            <option selected disabled>Выберите статус</option>
+            @foreach($statuses as $status)
+
+                <option
+                    value="{{ $status->value }}"
+                    @selected(old('status', $booking->status?->value ?? '') === $status->value)
+                >
+                {{ $status->label() }}
+                </option>
+
+            @endforeach
+
+        </select>
+    </div>
+
+    {{-- Client --}}
+    {{--<div>
         <button type="button" id="toggleClientMode" class="text-indigo-600 text-sm underline">
             + Новый клиент
         </button>
 
-        {{-- Existing client --}}
+        --}}{{-- Existing client --}}{{--
         <div id="existingClientBlock">
             <select
                 id="clientSelect"
@@ -55,7 +132,7 @@
             </select>
         </div>
 
-        {{-- New client --}}
+        --}}{{-- New client --}}{{--
         <div id="newClientBlock" class="hidden space-y-3">
 
             <input
@@ -77,29 +154,10 @@
 
         </div>
 
-    </div>
+    </div>--}}
 
-    <div>
-        <select
-            name="status"
-            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-        >
-                <option selected disabled>Выберите статус</option>
-            @foreach($statuses as $status)
 
-                <option
-                    value="{{ $status->value }}"
-                    @selected(old('status', $booking->status?->value ?? '') === $status->value)
-                >
-                {{ $status->label() }}
-                </option>
-
-            @endforeach
-
-        </select>
-    </div>
-
-    <div>
+    {{--<div>
         <label class="block mb-2 text-sm font-medium text-gray-700">
             Марка
         </label>
@@ -135,60 +193,10 @@
             {{ $message }}
         </div>
         @enderror
-    </div>
-
-    <div>
-        <label class="block mb-2 text-sm font-medium text-gray-700">
-            Время записи
-        </label>
-        <input
-            type="datetime-local"
-            name="start_at"
-            value="{{ old('start_at', isset($booking) ? $booking->start_at->format('Y-m-d\TH:i') : '') }}"
-            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-        >
-        @error('start_at')
-        <div class="text-red-500 text-sm mt-1">
-            {{ $message }}
-        </div>
-        @enderror
-    </div>
-
-    <div>
-        <label class="block mb-2 text-sm font-medium text-gray-700">
-            Продолжительность
-        </label>
-        <select
-            name="duration"
-            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-        >
+    </div>--}}
 
 
-                @foreach(config('durations') as $value => $label)
-                    <option value="{{ $value }}">
-                        {{ $label }}
-                    </option>
-                @endforeach
 
-        </select>
-
-    </div>
-
-    <div>
-        <label
-            for="complaint"
-            class="block mb-2 text-sm font-medium text-gray-700"
-        >
-            Жалобы
-        </label>
-
-        <textarea
-            name="complaint"
-            id="complaint"
-            rows="5"
-            class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
-        >{{ old('complaint') }}</textarea>
-    </div>
 
 </div>
 
