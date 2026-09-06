@@ -124,7 +124,7 @@ class BookingController extends Controller
     {
 
         $validated = $request->validate([
-            'client_id' => ['required', 'exists:clients,id'],
+            'client_id' => ['nullable', 'exists:clients,id'],
 
             'master_id' => ['required', 'exists:users,id'],
 
@@ -171,14 +171,14 @@ class BookingController extends Controller
         }
 
         $booking->update([
-            'client_id' => $validated['client_id'],
+            /*'client_id' => $validated['client_id'],*/
 
             'master_id' => $validated['master_id'],
 
             'status' => $validated['status'],
 
-            'car_brand' => $validated['car_brand'],
-            'car_model' => $validated['car_model'],
+            /*'car_brand' => $validated['car_brand'],
+            'car_model' => $validated['car_model'],*/
 
             'start_at' => $startAt,
             'end_at' => $endAt,
