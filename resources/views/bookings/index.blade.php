@@ -41,20 +41,17 @@
                     <tr class="border-t">
 
                         <td class="p-4">
-                            {{ $booking->client->name }}
+                            {{ $booking->client?->name ?? '—' }}
                         </td>
 
                         <td class="p-4">
-                            {{ $booking->client->phone }}
+                            {{ $booking->client?->phone ?? '—' }}
                         </td>
 
                         <td class="p-4">
                             {{ $booking->master->name }}
                         </td>
 
-                        <td class="p-4">
-                            {{ $booking->car_brand }} {{ $booking->car_model }}
-                        </td>
                         <td class="p-4">
                             {{ $booking->status->label() }}
                         </td>
